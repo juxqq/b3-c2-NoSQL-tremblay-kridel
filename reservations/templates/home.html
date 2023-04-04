@@ -1,0 +1,60 @@
+{% include 'base.html' %}
+<body>
+    <nav class="navbar navbar-expand-lg  navbar navbar-light" style="background-color: gray;">
+        <div class="container">
+          <a class="navbar-brand" href="#">
+            <div>
+              <a href="{% url 'home' %}">
+                <img src="../assets/images/logo.png">
+              </a>
+            </div>
+            <a class="navbar-brand" href="{% url 'home' %}"></a>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Accueil</a>
+              </li>
+              {% if  user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'home' %}">Mes réservations</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'login' %}">Se déconnecter</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'login' %}">Se connecter</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'home' %}">S'inscrire</a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <main>
+        {% if reservations %}
+        <h2>Réservations disponibles</h2>
+        <ul>
+          {% for reservation in reservations %}
+          <li>
+            {{reservation.ecole.nom}} -
+            <button
+              onclick="window.location.href = '/school_bookings/confirm_booking?booking_id={{booking.id}}';"
+            >
+              {{reservation.date|date}}
+            </button>
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p style="text-align: center;">Pas de réservations disponibles</p>
+        {% endif %}
+      </main>      
+</body>
+</html>
