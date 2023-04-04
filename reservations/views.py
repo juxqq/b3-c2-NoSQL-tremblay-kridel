@@ -14,7 +14,7 @@ def login(request):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             if user is not None:
-                login(request, user)
+                auth_login(request, user)
                 return redirect('home')
     else:
         form = AuthenticationForm()
@@ -28,12 +28,27 @@ def signup(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
-            login(request, user)
+            auth_login(request, user)
             return redirect('login')
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form, 'title': 'Create Account'})
 
-def sign_out(request):
+def signout(request):
     logout(request)
     return redirect('/reservations/login')
+
+def account_type(request):
+    if request.method == 'POST':
+        account_type = request.POST.get('account_type')
+        if account_type == 'ecole':
+            return redirect('school_signup')
+        elif account_type == 'user':
+            return redirect('signup')
+    return render(request, 'account_type.html')
+
+def school_signup(request):
+    if request.method == 'POST':
+        # Process form data here
+        return redirect('home')
+    return render(request, 'school_signup.html')

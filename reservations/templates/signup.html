@@ -1,44 +1,23 @@
 {% include 'base.html' %}
 <body>
   <main class="container">
-    <div class="row">
+    <div class="row text-center">
       <div class="col-md-6 mx-auto">
         <h1 class="text-center">Sign up</h1>
-        <form class="login-form" action="" method="POST">
-          {% csrf_token %} {% if error %}
-          <div class="alert alert-danger">{{ error }}</div>
-          {% endif %} {% if request.GET.next %}
-          <div class="alert alert-warning">
-            Cette page est indisponible.
-          </div>
-          {% endif %}
-          <div class="form-group">
-            <label for="username">Username :</label>
-            <input
-              type="text"
-              class="form-control"
-              name="username"
-              id="username"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="password">Password :</label>
-            <input
-              type="password"
-              class="form-control"
-              name="password"
-              id="password"
-              required
-            />
-            <label for="password">Confirm Password :</label>
-            <input
-              type="password"
-              class="form-control"
-              name="password-again"
-              id="password-again"
-              required
-            />
+        <form method="POST">
+          {% csrf_token %}
+          {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}<br>
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
 
       <div class="close">
           <button type="submit" class="btn btn-success btn-md ">

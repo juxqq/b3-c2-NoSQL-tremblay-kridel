@@ -1,6 +1,7 @@
 import uuid
 from django.db import models
 from django.contrib.auth.models import User
+from django import forms
 
 # Create your models here.
 class Ecole(models.Model):
@@ -25,4 +26,3 @@ class Reservation(models.Model):
     date = models.DateTimeField(null=False, blank=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, db_index=True)
-
