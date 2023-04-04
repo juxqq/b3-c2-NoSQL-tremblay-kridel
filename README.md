@@ -1,0 +1,1 @@
+# b3-c2-django-TREMBLAY-KRIDEL
