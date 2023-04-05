@@ -21,8 +21,15 @@ class Reservation(models.Model):
         default=uuid.uuid4,
         editable=False
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     ecole = models.ForeignKey(Ecole, on_delete=models.CASCADE)
     date = models.DateTimeField(null=False, blank=False)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True, db_index=True)
+
+class AssignationReservation(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ecole = models.ForeignKey(Ecole, on_delete=models.CASCADE)
+    reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)

@@ -1,30 +1,26 @@
-{% extends 'base.html' %}
+{% include 'base.html' %}
 
 {% block content %}
   <main class="container">
     <div class="row text-center">
       <div class="col-md-6 mx-auto">
-        <h1 class="text-center">Etes vous une école ou un user ?</h1>
-        <form method="POST">
-          {% csrf_token %}
+        <h1 class="text-center">Êtes vous une école ou un user ?</h1>
+          <div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="account_type" id="school" value="school" required>
-            <label class="form-check-label" for="school">
-              School
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="account_type" id="user" value="user" required>
-            <label class="form-check-label" for="user">
-              User
-            </label>
-          </div>
-          <div class="mt-3">
-            <button type="submit" class="btn btn-success btn-md">
-              Next
+            <button class="btn btn-primary btn-md" onclick="window.location.href = '/reservations/ecole_signup';">
+              Ecole
             </button>
+       
+            <button class="btn btn-primary btn-md" onclick="window.location.href = '/reservations/signup';">
+              User
+            </button>
+
+            <button class="btn btn-danger btn-md" onclick="window.location.href = '/reservations/home';" te>
+              Retour
+            </button>
+
+          
           </div>
-        </form>
       </div>
     </div>
   </main>

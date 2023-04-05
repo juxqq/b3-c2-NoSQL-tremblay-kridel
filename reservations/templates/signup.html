@@ -3,7 +3,7 @@
   <main class="container">
     <div class="row text-center">
       <div class="col-md-6 mx-auto">
-        <h1 class="text-center">Sign up</h1>
+        <h1 class="text-center">Inscription User</h1>
         <form method="POST">
           {% csrf_token %}
           {% for field in form %}
@@ -23,7 +23,7 @@
           <button type="submit" class="btn btn-success btn-md ">
             Valider
           </button>
-          <button class="btn btn-danger btn-md" onclick="window.location.href = '/reservations/home';">
+          <button class="btn btn-danger btn-md" onclick="window.location.href = '/reservations/account_type';">
             Retour
           </button>
       </div>
