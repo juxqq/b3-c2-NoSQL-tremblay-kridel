@@ -1,24 +1,58 @@
 {% include 'base.html' %}
+{% load auth_extras %}
 
 <body> 
     {% include 'navbar.html' %}
       <main>
+        {% if request.user|has_group:"User" and user.is_authenticated %}
         {% if reservations %}
         <h2>Réservations disponibles</h2>
         <ul>
           {% for reservation in reservations %}
+          <div style="text-align: center;">
+            <button type="action" class="btn btn-primary">Réserver</button>
+          <div>
           <li>
             {{reservation.ecole.nom}} -
+            {{reservation.date|date}}
             <button
-              onclick="window.location.href = '/school_bookings/confirm_booking?booking_id={{booking.id}}';"
-            >
-              {{reservation.date|date}}
+              onclick="window.location.href = '/reservations/user_reservations';"
+              type="action"
+              class="btn btn-primary">Réserver
+            </button>
+            <button
+              onclick="window.location.href = '/reservations/user_reservations_details';"
+              type="action"
+              class="btn btn-primary">Détails
             </button>
           </li>
           {% endfor %}
         </ul>
         {% else %}
         <p style="text-align: center;">Pas de réservations disponibles</p>
+        {% endif %}
+        {% elif request.user|has_group:"Ecole" and user.is_authenticated %}
+        {% if reservations %}
+        <h2>Réservations disponibles</h2>
+        <ul>
+          {% for reservation in reservations %}
+          <div style="text-align: center;">
+            <button type="action" class="btn btn-primary">Réserver</button>
+          <div>
+          <li>
+            {{reservation.ecole.nom}} -
+            {{reservation.date|date}}
+            <button
+              onclick="window.location.href = '/reservations/user_reservations';"
+              type="action"
+              class="btn btn-primary">Détails
+            </button>
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p style="text-align: center;">Pas de réservations disponibles</p>
+        {% endif %}
         {% endif %}
       </main>      
 </body>

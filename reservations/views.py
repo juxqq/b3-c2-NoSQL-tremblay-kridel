@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from .models import Ecole
 from .forms import EcoleSignupForm
+from django.contrib.auth.models import Group
 
 def home(request):
     return render(request, 'home.html')
@@ -31,6 +32,8 @@ def signup(request):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             auth_login(request, user)
+            group = Group.objects.get(name='User')
+            user.groups.add(group)
             return redirect('login')
     else:
         form = UserCreationForm()
@@ -67,6 +70,8 @@ def ecole_signup(request):
                 codePostal=form_codePostal)
             user = authenticate(username=username, password=password)
             auth_login(request, user)
+            group = Group.objects.get(name='Ecole')
+            user.groups.add(group)
             return redirect('login')
     else:
         form = EcoleSignupForm()

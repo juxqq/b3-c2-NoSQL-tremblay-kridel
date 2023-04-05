@@ -1,6 +1,6 @@
 import uuid
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractBaseUser, BaseUserManager
 from django import forms
 
 # Create your models here.
@@ -23,6 +23,7 @@ class Reservation(models.Model):
     )
     ecole = models.ForeignKey(Ecole, on_delete=models.CASCADE)
     date = models.DateTimeField(null=False, blank=False)
+    prix = models.DecimalField(max_digits=3, decimal_places=2)
 
 class AssignationReservation(models.Model):
     id = models.UUIDField(
